@@ -1,0 +1,50 @@
+@page "/calculator"
+@using BlazorTodo.Pages
+
+<h1>Calculator</h1>
+<br/>
+
+<p>Ans= @_model.Answer</p>
+<br/>
+<p>@_model.InfixExpression</p>
+
+<div class="btn-group" role="group" aria-label="Calculator Buttons">
+    <div class="btn-group-vertical" role="group" aria-label="7410">
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new PushDigit('7'))">7</button>
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new PushDigit('4'))">4</button>
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new PushDigit('1'))">1</button>
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new PushDigit('0'))">0</button>
+    </div>
+    <div class="btn-group-vertical" role="group" aria-label="852.">
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new PushDigit('8'))">8</button>
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new PushDigit('5'))">5</button>
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new PushDigit('2'))">2</button>
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new PushDigit('.'))">.</button>
+    </div>
+    <div class="btn-group-vertical" role="group" aria-label="963=">
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new PushDigit('9'))">9</button>
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new PushDigit('6'))">6</button>
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new PushDigit('3'))">3</button>
+        <button class="btn btn-outline-primary" @onclick="_ => Update(new Equal())">=</button>
+    </div>
+    <div class="btn-group-vertical" role="group" aria-label="arithmetic">
+        <button class="btn btn-outline-secondary"@onclick="_ => Update(new Division())">/</button>
+        <button class="btn btn-outline-secondary"@onclick="_ => Update(new Multiply())">*</button>
+        <button class="btn btn-outline-secondary"@onclick="_ => Update(new Minus())">-</button>
+        <button class="btn btn-outline-secondary" @onclick="_ => Update(new Plus())">+</button>
+    </div>
+    <div class="btn-group-vertical" role="group" aria-label="other">
+        <button class="btn btn-outline-dark" @onclick="_ => Update(new Clear())">C</button>
+        <button class="btn btn-outline-danger" @onclick="_ => Update(new AllClear())">AC</button>
+    </div>
+</div>
+
+@code{
+    CalculatorModel _model = new CalculatorModel();
+
+    void Update(IMsg iMsg)
+    {
+        _model = iMsg.Operate(_model);
+    }
+
+}
